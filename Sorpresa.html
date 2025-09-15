@@ -5,133 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Sorpresa!</title>
     <style>
+        /* --- ESTILOS GENERALES (SIN CAMBIOS) --- */
         @import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap');
+        body{margin:0;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:100vh;background:linear-gradient(135deg,#FF69B4,#FFD700,#87CEEB,#9370DB);overflow:hidden;position:relative;font-family:'Happy Monkey',cursive}
+        .scene{position:relative;text-align:center;animation:fadeInScene 1s ease-out;background:rgba(255,255,255,0.7);padding:20px;border-radius:30px;box-shadow:0 10px 40px rgba(0,0,0,0.2);backdrop-filter:blur(10px);max-width:90vw;display:flex;flex-direction:column;align-items:center;margin-bottom:20px}
+        @keyframes fadeInScene{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+        .birthday-cat{width:450px;max-width:100%;height:auto;margin-bottom:0;animation:bounceIn 1.5s ease-out}
+        @keyframes bounceIn{0%{transform:scale(0.5);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+        #play-music-button{padding:10px 20px;background:white;border:none;border-radius:20px;font-family:'Happy Monkey',cursive;cursor:pointer;box-shadow:0 5px 10px rgba(0,0,0,0.2);display:none;z-index:100;margin-top:15px}
+        .back-button{display:inline-block;background:#f0f0f0;color:#4C2A4C;border-radius:50px;padding:10px 25px;font-family:'Nunito',sans-serif;font-size:1em;text-decoration:none;box-shadow:0 3px 8px rgba(0,0,0,0.15);transition:transform .2s ease,box-shadow .2s ease;margin-top:20px;z-index:100}
+        .back-button:hover{transform:scale(1.05);box-shadow:0 5px 12px rgba(0,0,0,0.2)}
+        .confetti{position:absolute;width:10px;height:10px;border-radius:50%;animation:fall 5s linear infinite;opacity:0;z-index:-1}
+        @keyframes fall{0%{transform:translateY(-10vh) rotate(0deg);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+        .balloon{position:absolute;width:50px;height:65px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:floatUp 8s ease-in-out infinite;opacity:0.7;z-index:-1}
+        @keyframes floatUp{0%{transform:translateY(110vh);opacity:0}10%{opacity:0.7}90%{opacity:0.7}100%{transform:translateY(-10vh);opacity:0}}
 
-        body {
-            margin: 0;
-            display: flex;
-            flex-direction: column; /* Para centrar verticalmente y el botón */
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #FF69B4, #FFD700, #87CEEB, #9370DB);
-            overflow: hidden;
-            position: relative;
-            font-family: 'Happy Monkey', cursive;
+        /* --- NUEVO: ESTILOS PARA MÓVILES --- */
+        @media (max-width: 600px) {
+            .scene {
+                padding: 15px;
+            }
+            .birthday-cat {
+                width: 100%; /* La imagen se ajusta al 100% de su contenedor (.scene) */
+            }
+            .back-button {
+                padding: 8px 20px;
+                font-size: 0.9em;
+                margin-top: 15px;
+            }
         }
-
-        .scene {
-            position: relative;
-            text-align: center;
-            animation: fadeInScene 1s ease-out;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 20px; /* Reducimos un poco el padding si la imagen es grande */
-            border-radius: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-            max-width: 90vw; /* Limitar el ancho máximo de la escena */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px; /* Espacio antes del botón de regreso */
-        }
-        
-        @keyframes fadeInScene {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .birthday-cat {
-            width: 450px; /* Aumentar el tamaño */
-            max-width: 100%; /* Asegurar que no se salga de la escena en pantallas pequeñas */
-            height: auto;
-            margin-bottom: 0px; /* No necesitamos margen si el banner desaparece */
-            animation: bounceIn 1.5s ease-out;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            60% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        #play-music-button {
-             padding: 10px 20px; background: white; border: none; border-radius: 20px;
-             font-family: 'Happy Monkey', cursive; cursor: pointer; box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-             display: none;
-             z-index: 100;
-             margin-top: 15px; /* Espacio debajo de la imagen si aparece */
-        }
-
-        /* BOTÓN DE REGRESO */
-        .back-button {
-            display: inline-block;
-            background: #f0f0f0; /* Color claro para contrastar */
-            color: #4C2A4C;
-            border-radius: 50px;
-            padding: 10px 25px;
-            font-family: 'Nunito', sans-serif;
-            font-size: 1em;
-            text-decoration: none;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            margin-top: 20px; /* Separación de la escena */
-            z-index: 100;
-        }
-
-        .back-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-        }
-
-
-        .confetti { position: absolute; width: 10px; height: 10px; border-radius: 50%; animation: fall 5s linear infinite; opacity: 0; z-index: -1;}
-        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
-        .balloon { position: absolute; width: 50px; height: 65px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; animation: floatUp 8s ease-in-out infinite; opacity: 0.7; z-index: -1;}
-        @keyframes floatUp { 0% { transform: translateY(110vh); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-10vh); opacity: 0; } }
-
     </style>
 </head>
 <body>
     <audio id="birthday-song" loop>
         <source src="HBD_Karen.mp3" type="audio/mpeg">
     </audio>
-
     <div class="scene">
         <img src="Perfect.png" alt="Tres gatitos con un pastel, flores y globos de cumpleaños" class="birthday-cat">
-        
         <button id="play-music-button">¡Toca para escuchar la música!</button>
-
     </div>
-    
     <a href="index.html" class="back-button">Volver al mensaje</a>
-
-
     <script>
-        const birthdaySong = document.getElementById('birthday-song');
-        const playButton = document.getElementById('play-music-button');
-
-        window.addEventListener('load', () => {
-            const playPromise = birthdaySong.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Autoplay bloqueado. Mostrando botón.");
-                    playButton.style.display = 'block';
-                });
-            }
-        });
-        
-        playButton.addEventListener('click', () => {
-            birthdaySong.play();
-            playButton.style.display = 'none';
-        });
-
-        const confettiColors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722'];
-        const balloonColors = ['#FF69B4', '#FFD700', '#87CEEB', '#9370DB', '#FFA07A', ' #ADFF2F'];
-        function createConfetti() { const confetti = document.createElement('div'); confetti.classList.add('confetti'); confetti.style.left = Math.random() * 100 + 'vw'; confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)]; confetti.style.animationDuration = Math.random() * 3 + 3 + 's'; confetti.style.animationDelay = Math.random() * 2 + 's'; document.body.appendChild(confetti); confetti.addEventListener('animationend', () => confetti.remove()); }
-        function createBalloon() { const balloon = document.createElement('div'); balloon.classList.add('balloon'); balloon.style.left = Math.random() * 90 + 5 + 'vw'; balloon.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)]; balloon.style.animationDuration = Math.random() * 5 + 8 + 's'; balloon.style.animationDelay = Math.random() * 3 + 's'; document.body.appendChild(balloon); balloon.addEventListener('animationend', () => balloon.remove()); }
-        setInterval(createConfetti, 150); for (let i = 0; i < 50; i++) { createConfetti(); }
-        setInterval(createBalloon, 800); for (let i = 0; i < 10; i++) { createBalloon(); }
+        const birthdaySong=document.getElementById("birthday-song"),playButton=document.getElementById("play-music-button");window.addEventListener("load",()=>{const e=birthdaySong.play();void 0!==e&&e.catch(e=>{console.log("Autoplay bloqueado. Mostrando botón."),playButton.style.display="block"})}),playButton.addEventListener("click",()=>{birthdaySong.play(),playButton.style.display="none"});const confettiColors=['#f44336','#e91e63','#9c27b0','#673ab7','#3f51b5','#2196f3','#03a9f4','#00bcd4','#009688','#4CAF50','#8BC34A','#CDDC39','#FFEB3B','#FFC107','#FF9800','#FF5722'],balloonColors=["#FF69B4","#FFD700","#87CEEB","#9370DB","#FFA07A"," #ADFF2F"];function createConfetti(){const e=document.createElement("div");e.classList.add("confetti"),e.style.left=100*Math.random()+"vw",e.style.backgroundColor=confettiColors[Math.floor(Math.random()*confettiColors.length)],e.style.animationDuration=3*Math.random()+3+"s",e.style.animationDelay=2*Math.random()+"s",document.body.appendChild(e),e.addEventListener("animationend",()=>e.remove())}function createBalloon(){const e=document.createElement("div");e.classList.add("balloon"),e.style.left=90*Math.random()+5+"vw",e.style.backgroundColor=balloonColors[Math.floor(Math.random()*balloonColors.length)],e.style.animationDuration=5*Math.random()+8+"s",e.style.animationDelay=3*Math.random()+"s",document.body.appendChild(e),e.addEventListener("animationend",()=>e.remove())}setInterval(createConfetti,150);for(let e=0;e<50;e++)createConfetti();setInterval(createBalloon,800);for(let e=0;e<10;e++)createBalloon();
     </script>
 </body>
 </html>
