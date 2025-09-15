@@ -5,31 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Un Mensaje para Ti</title>
     <style>
-        /* --- ESTILOS GENERALES (SIN CAMBIOS) --- */
         @import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Nunito:wght@400;700&display=swap');
-        body{margin:0;font-family:'Nunito',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:linear-gradient(135deg,#FFD1E3,#FFC2A1);text-align:center;padding:20px;box-sizing:border-box;overflow:hidden;position:relative}
-        .card{background:rgba(255,255,255,0.85);padding:40px;border-radius:25px;box-shadow:0 15px 40px rgba(0,0,0,0.2);backdrop-filter:blur(15px);max-width:650px;animation:popIn 1s ease-out forwards;display:flex;flex-direction:column;align-items:center;z-index:10;position:relative}
-        @keyframes popIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
-        h1{font-family:'Happy Monkey',cursive;font-size:3.5em;color:#FF69B4;margin-bottom:25px}
-        p{font-size:1.3em;line-height:1.7;color:#4C2A4C;margin-bottom:35px}
-        .signature{font-size:1.4em;font-family:'Happy Monkey',cursive;margin-top:25px;color:#9370DB}
-        .surprise-link{display:inline-block;background:linear-gradient(45deg,#9370DB,#FF69B4);color:white;border-radius:50px;padding:15px 30px;font-family:'Happy Monkey',cursive;font-size:1.2em;text-decoration:none;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:transform .2s ease,box-shadow .2s ease;margin-top:40px}
-        .surprise-link:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.3)}
-        .confetti{position:absolute;width:10px;height:10px;border-radius:50%;animation:fall 5s linear infinite;opacity:0;z-index:1}
-        @keyframes fall{0%{transform:translateY(-10vh) rotate(0deg);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
-        /* --- NUEVO: ESTILOS PARA MÓVILES --- */
+        body {
+            margin: 0;
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Centrado por defecto en pantallas grandes */
+            min-height: 100vh;
+            background: linear-gradient(135deg, #FFD1E3, #FFC2A1);
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            backdrop-filter: blur(15px);
+            max-width: 650px;
+            animation: popIn 1s ease-out forwards;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-family: 'Happy Monkey', cursive;
+            font-size: 3.5em;
+            color: #FF69B4;
+            margin-top: 0; /* Ajuste de margen */
+            margin-bottom: 20px; /* Ajuste de margen */
+        }
+
+        p {
+            font-size: 1.3em;
+            line-height: 1.7;
+            color: #4C2A4C;
+            margin-bottom: 25px; /* Ajuste de margen */
+        }
+
+        .signature {
+            font-size: 1.4em;
+            font-family: 'Happy Monkey', cursive;
+            margin-top: 20px; /* Ajuste de margen */
+            color: #9370DB;
+        }
+        
+        .surprise-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #9370DB, #FF69B4);
+            color: white;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-family: 'Happy Monkey', cursive;
+            font-size: 1.2em;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform .2s ease, box-shadow .2s ease;
+            margin-top: 30px; /* Ajuste de margen */
+        }
+
+        .surprise-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .confetti { position: absolute; width: 10px; height: 10px; border-radius: 50%; animation: fall 5s linear infinite; opacity: 0; z-index: 1;}
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+        /* --- ESTILOS PARA MÓVILES --- */
+        @media (max-height: 800px) { /* Se activa en pantallas con poca altura */
+             body {
+                align-items: flex-start; /* Alinea la tarjeta arriba */
+                padding-top: 5vh; /* Añade un poco de espacio arriba */
+                padding-bottom: 5vh;
+                height: auto; /* Permite el scroll */
+                min-height: auto;
+            }
+        }
+
         @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
             .card {
                 padding: 25px;
-                max-width: 90vw; /* Ocupa casi todo el ancho */
+                width: 90vw;
             }
             h1 {
-                font-size: 2.5em; /* Título más pequeño */
+                font-size: 2.5em;
             }
             p {
-                font-size: 1.1em; /* Párrafo más pequeño */
-                margin-bottom: 25px;
+                font-size: 1.1em;
             }
             .surprise-link {
                 padding: 12px 25px;
@@ -60,5 +140,3 @@
     </script>
 </body>
 </html>
-
-
